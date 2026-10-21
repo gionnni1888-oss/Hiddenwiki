@@ -18,10 +18,10 @@ if [ -f /etc/secrets/hs_ed25519_secret_key.b64 ]; then
     fi
 fi
 
-# IMPORTANTE: dai la cartella a debian-tor e avvia Tor come debian-tor
+# Permessi chiavi Tor
 chown -R debian-tor:debian-tor /var/lib/tor/hiddenwiki
 chmod 700 /var/lib/tor/hiddenwiki
-chmod 600 /var/lib/tor/hiddenwiki/*
+chmod 600 /var/lib/tor/hiddenwiki/* 2>/dev/null || true
 
 echo "Avvio Tor come debian-tor..."
 su -s /bin/bash debian-tor -c "tor -f /etc/tor/torrc" &
@@ -34,9 +34,13 @@ if [ -f /var/lib/tor/hiddenwiki/hostname ]; then
     echo "========================================="
 fi
 
+# Assicura che visits.json esista e sia scrivibile
+touch /var/www/html/visits.json
+chmod 666 /var/www/html/visits.json
+chown www-data:www-data /var/www/html/visits.json
+
 echo "Avvio PHP-FPM..."
 php-fpm8.2 -D || php-fpm8.3 -D || php-fpm -D
 
 echo "Avvio Nginx..."
 nginx -g "daemon off;"
-
