@@ -1,4 +1,5 @@
 <?php
+require_once 'counter.php';
 require 'config.php';
 $dataFile = __DIR__ . '/data.json';
 $data = file_exists($dataFile) ? json_decode(file_get_contents($dataFile), true) : [
