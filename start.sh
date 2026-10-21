@@ -39,3 +39,6 @@ php-fpm8.2 -D || php-fpm8.3 -D || php-fpm -D
 
 echo "Avvio Nginx..."
 nginx -g "daemon off;"
+
+touch /var/www/html/visits.json
+chmod 666 /var/www/html/visits.json
