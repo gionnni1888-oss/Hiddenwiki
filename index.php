@@ -1,5 +1,4 @@
 <?php
-require_once 'counter.php';
 require 'config.php';
 $dataFile = __DIR__ . '/data.json';
 $data = file_exists($dataFile) ? json_decode(file_get_contents($dataFile), true) : [
@@ -93,7 +92,3 @@ renderSection('Other Wikis / Mirrors', $data['wikis']);
 </div>
 </body>
 </html>
-<?php
-$v = json_decode(@file_get_contents(__DIR__.'/visits.json'), true);
-echo "Visits today: " . ($v['today'] ?? 0) . " | Total: " . ($v['total'] ?? 0);
-?>
