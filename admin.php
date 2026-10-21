@@ -97,6 +97,11 @@ $sections = [
     'services'   => 'Services & Tools',
     'wikis'      => 'Other Wikis / Mirrors'
 ];
+
+// Stats visite
+$v = file_exists(__DIR__.'/visits.json') 
+    ? json_decode(file_get_contents(__DIR__.'/visits.json'), true) 
+    : ['today'=>0, 'total'=>0, 'date'=>date('Y-m-d')];
 ?>
 <!DOCTYPE html>
 <html>
@@ -118,6 +123,14 @@ $sections = [
 </head>
 <body>
 <h1>Admin Panel</h1>
+
+<div style="background:#1a1a1a; border:1px solid #00ff00; padding:12px; margin:15px 0;">
+  <strong>Stats</strong><br>
+  Visits today: <?= (int)($v['today'] ?? 0) ?><br>
+  Total visits: <?= (int)($v['total'] ?? 0) ?><br>
+  Last reset day: <?= htmlspecialchars($v['date'] ?? '-') ?>
+</div>
+
 <p>
   <a href="index.php" target="_blank">Vedi la wiki</a> |
   <a href="?logout=1">Logout</a> |
